@@ -36,6 +36,7 @@ class SwipeRow extends Component {
 		this.isOpen = false;
 		this.previousTrackedTranslateX = 0;
 		this.previousTrackedDirection = null;
+		this.swipeDirection = null;
 		this.horizontalSwipeGestureBegan = false;
 		this.swipeInitialX = null;
 		this.parentScrollEnabled = true;
@@ -56,6 +57,7 @@ class SwipeRow extends Component {
 				this.props.onSwipeValueChange && this.props.onSwipeValueChange({
 					isOpen: this.isOpen,
 					direction,
+					swipeDirection: this.swipeDirection,
 					value,
 				});
 				this.previousTrackedTranslateX = value;
@@ -166,6 +168,8 @@ class SwipeRow extends Component {
 
 			if (this.props.stopLeftSwipe && newDX > this.props.stopLeftSwipe) { newDX = this.props.stopLeftSwipe; }
 			if (this.props.stopRightSwipe && newDX < this.props.stopRightSwipe) { newDX = this.props.stopRightSwipe; }
+
+			this.swipeDirection = dx > 0 ? 'right' : 'left'
 
 			this._translateX.setValue(newDX);
 		}
